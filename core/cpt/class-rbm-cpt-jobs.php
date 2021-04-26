@@ -34,12 +34,12 @@ class RBM_CPT_Jobs extends RBM_CPT {
 	function __construct() {
 
 		// This allows us to Localize the Labels
-		$this->label_singular = __( 'Job', RBM_Jobs_CPT_ID );
-		$this->label_plural   = __( 'Jobs', RBM_Jobs_CPT_ID );
+		$this->label_singular = __( 'Job', 'rbm-jobs-cpt' );
+		$this->label_plural   = __( 'Jobs', 'rbm-jobs-cpt' );
 
 		$this->labels = array(
-			'menu_name' => __( 'Jobs', RBM_Jobs_CPT_ID ),
-			'all_items' => __( 'All Jobs', RBM_Jobs_CPT_ID ),
+			'menu_name' => __( 'Jobs', 'rbm-jobs-cpt' ),
+			'all_items' => __( 'All Jobs', 'rbm-jobs-cpt' ),
 		);
 
 		parent::__construct();

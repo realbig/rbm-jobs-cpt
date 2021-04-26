@@ -67,7 +67,7 @@ if ( ! class_exists( 'RBM_Jobs_CPT' ) ) {
 			if ( ! class_exists( 'RBM_CPTS' ) ||
 			   ! class_exists( 'RBM_FieldHelpers' ) ) {
 				
-				$this->admin_errors[] = sprintf( _x( 'To use the %s Plugin, both %s and %s must be active as either a Plugin or a Must Use Plugin!', 'Missing Dependency Error', RBM_Jobs_CPT_ID ), '<strong>' . $this->plugin_data['Name'] . '</strong>', '<a href="//github.com/realbig/rbm-field-helpers/" target="_blank">' . __( 'RBM Field Helpers', RBM_Jobs_CPT_ID ) . '</a>', '<a href="//github.com/realbig/rbm-cpts/" target="_blank">' . __( 'RBM Custom Post Types', RBM_Jobs_CPT_ID ) . '</a>' );
+				$this->admin_errors[] = sprintf( _x( 'To use the %s Plugin, both %s and %s must be active as either a Plugin or a Must Use Plugin!', 'Missing Dependency Error', 'rbm-jobs-cpt' ), '<strong>' . $this->plugin_data['Name'] . '</strong>', '<a href="//github.com/realbig/rbm-field-helpers/" target="_blank">' . __( 'RBM Field Helpers', 'rbm-jobs-cpt' ) . '</a>', '<a href="//github.com/realbig/rbm-cpts/" target="_blank">' . __( 'RBM Custom Post Types', 'rbm-jobs-cpt' ) . '</a>' );
 				
 				if ( ! has_action( 'admin_notices', array( $this, 'admin_errors' ) ) ) {
 					add_action( 'admin_notices', array( $this, 'admin_errors' ) );
@@ -100,11 +100,6 @@ if ( ! class_exists( 'RBM_Jobs_CPT' ) ) {
 			
 			// Only call this once, accessible always
 			$this->plugin_data = get_plugin_data( __FILE__ );
-			
-			if ( ! defined( 'RBM_Jobs_CPT_ID' ) ) {
-				// Plugin Text Domain
-				define( 'RBM_Jobs_CPT_ID', $this->plugin_data['TextDomain'] );
-			}
 
 			if ( ! defined( 'RBM_Jobs_CPT_VER' ) ) {
 				// Plugin version
@@ -142,25 +137,25 @@ if ( ! class_exists( 'RBM_Jobs_CPT' ) ) {
 			$lang_dir = apply_filters( 'rbm_jobs_cpt_languages_directory', $lang_dir );
 
 			// Traditional WordPress plugin locale filter
-			$locale = apply_filters( 'plugin_locale', get_locale(), RBM_Jobs_CPT_ID );
-			$mofile = sprintf( '%1$s-%2$s.mo', RBM_Jobs_CPT_ID, $locale );
+			$locale = apply_filters( 'plugin_locale', get_locale(), 'rbm-jobs-cpt' );
+			$mofile = sprintf( '%1$s-%2$s.mo', 'rbm-jobs-cpt', $locale );
 
 			// Setup paths to current locale file
 			$mofile_local   = $lang_dir . $mofile;
-			$mofile_global  = WP_LANG_DIR . '/' . RBM_Jobs_CPT_ID . '/' . $mofile;
+			$mofile_global  = WP_LANG_DIR . '/rbm-jobs-cpt/' . $mofile;
 
 			if ( file_exists( $mofile_global ) ) {
 				// Look in global /wp-content/languages/rbm-jobs-cpt/ folder
 				// This way translations can be overridden via the Theme/Child Theme
-				load_textdomain( RBM_Jobs_CPT_ID, $mofile_global );
+				load_textdomain( 'rbm-jobs-cpt', $mofile_global );
 			}
 			else if ( file_exists( $mofile_local ) ) {
 				// Look in local /wp-content/plugins/rbm-jobs-cpt/languages/ folder
-				load_textdomain( RBM_Jobs_CPT_ID, $mofile_local );
+				load_textdomain( 'rbm-jobs-cpt', $mofile_local );
 			}
 			else {
 				// Load the default language files
-				load_plugin_textdomain( RBM_Jobs_CPT_ID, false, $lang_dir );
+				load_plugin_textdomain( 'rbm-jobs-cpt', false, $lang_dir );
 			}
 
 		}
@@ -208,14 +203,14 @@ if ( ! class_exists( 'RBM_Jobs_CPT' ) ) {
 		public function register_scripts() {
 			
 			wp_register_style(
-				RBM_Jobs_CPT_ID . '-admin',
+				'rbm-jobs-cpt-admin',
 				RBM_Jobs_CPT_URL . 'assets/css/admin.css',
 				null,
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : RBM_Jobs_CPT_VER
 			);
 			
 			wp_register_script(
-				RBM_Jobs_CPT_ID . '-admin',
+				'rbm-jobs-cpt-admin',
 				RBM_Jobs_CPT_URL . 'assets/js/admin.js',
 				array( 'jquery' ),
 				defined( 'WP_DEBUG' ) && WP_DEBUG ? time() : RBM_Jobs_CPT_VER,
@@ -223,7 +218,7 @@ if ( ! class_exists( 'RBM_Jobs_CPT' ) ) {
 			);
 			
 			wp_localize_script( 
-				RBM_Jobs_CPT_ID . '-admin',
+				'rbm-jobs-cpt-admin',
 				'rBMJobsCPT',
 				apply_filters( 'rbm_jobs_cpt_localize_admin_script', array() )
 			);
