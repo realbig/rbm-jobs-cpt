@@ -43,6 +43,31 @@ class RBM_CPT_Jobs extends RBM_CPT {
 		);
 
 		parent::__construct();
+
+		add_action( 'init', array( $this, 'register_post_status' ) );
 		
 	}
+
+	/**
+	 * Adds a new Post Status specific to Jobs (Requires the WP Statuses plugin to be active)
+	 *
+	 * @access	public
+	 * @since	{{VERSION}}
+	 * @return  void
+	 */
+	public function register_post_status() {
+
+		register_post_status( 'closed-job-posting', array(
+			'label' => __( 'Closed', 'rbm-jobs-cpt' ),
+			'public' => true,
+			'post_type' => array( 'jobs' ),
+			'show_in_admin_all_list'    => true,
+			'show_in_admin_status_list' => true,
+			'show_in_metabox_dropdown'  => true,
+			'show_in_inline_dropdown'   => true,
+			'dashicon' => 'dashicons-dismiss',
+		) );
+
+	}
+
 }

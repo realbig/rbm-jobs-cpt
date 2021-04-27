@@ -76,6 +76,18 @@ if ( ! class_exists( 'RBM_Jobs_CPT' ) ) {
 				return false;
 				
 			}
+
+			if ( ! class_exists( 'WP_Statuses' ) ) {
+
+				$this->admin_errors[] = sprintf( __( 'To use the %s Plugin, %s needs to be active!', 'rbm-jobs-cpt' ), '<strong>' . $this->plugin_data['Name'] . '</strong>', '<a href="//github.com/imath/wp-statuses" target="_blank">' . __( 'WP Statuses', 'rbm-jobs-cpt' ) . '</a>' );
+				
+				if ( ! has_action( 'admin_notices', array( $this, 'admin_errors' ) ) ) {
+					add_action( 'admin_notices', array( $this, 'admin_errors' ) );
+				}
+				
+				return false;
+
+			}
 			
 			$this->require_necessities();
 			
