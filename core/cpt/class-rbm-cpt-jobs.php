@@ -52,7 +52,7 @@ class RBM_CPT_Jobs extends RBM_CPT {
 	 * Adds a new Post Status specific to Jobs (Requires the WP Statuses plugin to be active)
 	 *
 	 * @access	public
-	 * @since	{{VERSION}}
+	 * @since	1.0.1
 	 * @return  void
 	 */
 	public function register_post_status() {
